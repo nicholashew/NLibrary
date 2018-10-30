@@ -36,6 +36,18 @@ namespace NLibrary.Tests.Util
         }
 
         [Fact]
+        public void RandomDecimalTest()
+        {
+            const decimal maxValue = 999.999999999m;
+            for (int x = 0; x < 500; x++)
+            {
+                decimal randomNumber = RandomHelper.NextDecimal(0, maxValue);
+                Logger.WriteLine("Random Decimal: {0}", randomNumber);
+                Assert.InRange(randomNumber, 0, maxValue);
+            }
+        }
+
+        [Fact]
         public void RandomStringTest()
         {
             var stringRegex = new Regex("^[a-zA-Z0-9!@#$%^&*()_=+]*$");
