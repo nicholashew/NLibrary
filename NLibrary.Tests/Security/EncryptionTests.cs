@@ -24,7 +24,7 @@ namespace NLibrary.Tests.Security
             string plainText = "hello world";
             string encrypted = Encryption.Base64Encrypt(plainText);
             string decrypted = Encryption.Base64Decrypt(encrypted);
-
+            
             Assert.NotEqual(plainText, encrypted);
             Assert.Equal(plainText, decrypted);
         }
@@ -45,6 +45,17 @@ namespace NLibrary.Tests.Security
             string encrypted = Encryption.SHA1Hash(plainText);
 
             Assert.Equal("2AAE6C35C94FCFB415DBE95F408B9CE91EE846ED", encrypted);
+        }
+
+        [Fact]
+        public void DesTest()
+        {
+            string plainText = "hello world";
+            string encrypted = Encryption.DesEncrypt(plainText, DesSecretKey, InitVector);
+            string decrypted = Encryption.DesDecrypt(encrypted, DesSecretKey, InitVector);
+            
+            Assert.NotEqual(plainText, encrypted);
+            Assert.Equal(plainText, decrypted);
         }
 
         [Fact]
@@ -71,17 +82,6 @@ namespace NLibrary.Tests.Security
         }
 
         [Fact]
-        public void DesTest()
-        {
-            string plainText = "hello world";
-            string encrypted = Encryption.DesEncrypt(plainText, DesSecretKey, InitVector);
-            string decrypted = Encryption.DesDecrypt(encrypted, DesSecretKey, InitVector);
-
-            Assert.NotEqual(plainText, encrypted);
-            Assert.Equal(plainText, decrypted);
-        }
-
-        [Fact]
         public void DesThrowsInvalidSecretKeyException()
         {
             string encrypted = Encryption.DesEncrypt("hello world", DesSecretKey, InitVector);
@@ -97,7 +97,7 @@ namespace NLibrary.Tests.Security
             string plainText = "hello world";
             string encrypted = Encryption.TripleDESEncrypt(plainText, TripleDesSecretKey, InitVector);
             string decrypted = Encryption.TripleDESDecrypt(encrypted, TripleDesSecretKey, InitVector);
-
+            
             Assert.NotEqual(plainText, encrypted);
             Assert.Equal(plainText, decrypted);
         }
